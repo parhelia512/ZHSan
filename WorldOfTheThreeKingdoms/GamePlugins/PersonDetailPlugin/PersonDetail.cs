@@ -224,14 +224,15 @@
                             int current = enumerator3.Current;
                             if (treasure.TreasureGroup == current)
                             {
-                                if (File.Exists(treasure.Picture.Name.ToString())){
+                                if (File.Exists(treasure.Picture.Name.ToString()))
+                                {
                                     try
                                     {
                                         CacheManager.Draw(treasure.Picture, this.TreasuresClientDisplayPosition(current), sourceRectangle, Color.White, 0f, Vector2.Zero, SpriteEffects.None, 0.1987f);
                                     }
                                     catch
                                     {
-                                       
+
                                     }
                                 }
                                 else { CacheManager.Draw("Content/Textures/Resources/Treasure/9999.png", this.TreasuresClientDisplayPosition(current), sourceRectangle, Color.White, 0f, Vector2.Zero, SpriteEffects.None, 0.1987f); }
@@ -798,6 +799,7 @@
 
         internal void SetPerson(Person person)
         {
+            this.AllSkillTexts.SimpleClear();
             foreach (Skill skill in Session.Current.Scenario.GameCommonData.AllSkills.Skills.Values)
             {
                 Rectangle position = new Rectangle(this.SkillDisplayOffset.X + (skill.DisplayCol * this.SkillBlockSize.X), this.SkillDisplayOffset.Y + (skill.DisplayRow * this.SkillBlockSize.Y), this.SkillBlockSize.X, this.SkillBlockSize.Y);
@@ -1032,32 +1034,32 @@
                 this.MoreMessageText.ResortTexts();
            
             }
-            this.IDN = person;
-            if (Directory.Exists(@"Content/Sound/Animation/Person/" + this.IDN.ID.ToString()) && (this.Switch3 == "on"))
-            {
-                string[] files = Directory.GetFiles("Content/Sound/Animation/Person/" + this.IDN.ID.ToString(), "CriticalStrike" + "*.wav");
-                if (files.Count() > 0)
-                {
-                    this.ThePersonSound = "Content/Sound/Animation/Person/" + this.IDN.ID.ToString() + "/" + "CriticalStrike" + GameObject.Random(1, files.Count()) + ".wav";
-                }
-            }
-            else if (Directory.Exists(@"Content/Sound/Animation/Person/" + ((int)this.IDN.PictureIndex).ToString()) && (this.Switch3 == "on"))
-            {
-                string[] files = Directory.GetFiles("Content/Sound/Animation/Person/" + ((int)this.IDN.PictureIndex).ToString(), "CriticalStrike" + "*.wav");
-                if (files.Count() > 0)
-                {
-                    this.ThePersonSound = "Content/Sound/Animation/Person/" + ((int)this.IDN.PictureIndex).ToString() + "/" + "CriticalStrike" + GameObject.Random(1, files.Count()) + ".wav";
-                }
-            }
-            else if (person.Sex == true && File.Exists(@"Content/Sound/Female.wav"))
-            {
-                this.ThePersonSound = "Content/Sound/Female.wav";
+            //this.IDN = person;
+            //if (Directory.Exists(@"Content/Sound/Animation/Person/" + this.IDN.ID.ToString()) && (this.Switch3 == "on"))
+            //{
+            //    string[] files = Directory.GetFiles("Content/Sound/Animation/Person/" + this.IDN.ID.ToString(), "CriticalStrike" + "*.wav");
+            //    if (files.Count() > 0)
+            //    {
+            //        this.ThePersonSound = "Content/Sound/Animation/Person/" + this.IDN.ID.ToString() + "/" + "CriticalStrike" + GameObject.Random(1, files.Count()) + ".wav";
+            //    }
+            //}
+            //else if (Directory.Exists(@"Content/Sound/Animation/Person/" + ((int)this.IDN.PictureIndex).ToString()) && (this.Switch3 == "on"))
+            //{
+            //    string[] files = Directory.GetFiles("Content/Sound/Animation/Person/" + ((int)this.IDN.PictureIndex).ToString(), "CriticalStrike" + "*.wav");
+            //    if (files.Count() > 0)
+            //    {
+            //        this.ThePersonSound = "Content/Sound/Animation/Person/" + ((int)this.IDN.PictureIndex).ToString() + "/" + "CriticalStrike" + GameObject.Random(1, files.Count()) + ".wav";
+            //    }
+            //}
+            //else if (person.Sex == true && File.Exists(@"Content/Sound/Female.wav"))
+            //{
+            //    this.ThePersonSound = "Content/Sound/Female.wav";
 
-            }
-            else
-            this.ThePersonSound = ""; //"Content/Sound/Open.wav";
-            if (this.ThePersonSound.Length > 0)
-            { this.screen.PlayNormalSound(this.ThePersonSound); }
+            //}
+            //else
+            //this.ThePersonSound = ""; //"Content/Sound/Open.wav";
+            //if (this.ThePersonSound.Length > 0)
+            //{ this.screen.PlayNormalSound(this.ThePersonSound); }
 
         }
 

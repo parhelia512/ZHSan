@@ -48,14 +48,14 @@ namespace WorldOfTheThreeKingdoms.GameScreens
                 Treasure currentGameObject = this.CurrentGameObject as Treasure;
                 if (currentGameObject.BelongedPerson != null)
                 {
-                    Session.MainGame.mainGameScreen.ShowTabListInFrame(UndoneWorkKind.Frame, FrameKind.Person, FrameFunction.GetAwardTreasurePerson, false, true, true, false, this.CurrentArchitecture.BelongedFaction.PersonsInArchitecturesExceptLeader, null, "", "");
+                    Session.MainGame.mainGameScreen.ShowTabListInFrame2(UndoneWorkKind.Frame2, FrameKind.Person, FrameFunction.GetAwardTreasurePerson, false, true, true, false, this.CurrentArchitecture.BelongedFaction.PersonsInArchitecturesExceptLeader, null, "", "");
                 }
             }
         }
 
         private void FrameFunction_Architecture_AfterGetAwardTreasurePerson() // 赏赐宝物
         {
-            this.CurrentPerson = Session.MainGame.mainGameScreen.Plugins.TabListPlugin.SelectedItem as Person;
+            this.CurrentPerson = Session.MainGame.mainGameScreen.Plugins.TabListPlugin2.SelectedItem as Person;
             if (this.CurrentPerson != null)
             {
                 Treasure currentGameObject = this.CurrentGameObject as Treasure;

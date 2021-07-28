@@ -1482,6 +1482,9 @@
     <Compile Include="GamePlugins\DateRunnerPlugin\DateRunnerPlugin.cs" />
     <Compile Include="GamePlugins\FactionTechniquesPlugin\FactionTechniques.cs" />
     <Compile Include="GamePlugins\FactionTechniquesPlugin\FactionTechniquesPlugin.cs" />
+    <Compile Include="GamePlugins\GameFormFrame2Plugin\FrameButtonState.cs" />
+    <Compile Include="GamePlugins\GameFormFrame2Plugin\GameFrame2.cs" />
+    <Compile Include="GamePlugins\GameFormFrame2Plugin\GameFramePlugin2.cs" />
     <Compile Include="GamePlugins\GameFormFramePlugin\FrameButtonState.cs" />
     <Compile Include="GamePlugins\GameFormFramePlugin\GameFrame.cs" />
     <Compile Include="GamePlugins\GameFormFramePlugin\GameFramePlugin.cs" />
@@ -1542,6 +1545,11 @@
     <Compile Include="GamePlugins\ScreenBlindPlugin\ScreenBlindPlugin.cs" />
     <Compile Include="GamePlugins\SimpleTextDialogPlugin\SimpleTextDialog.cs" />
     <Compile Include="GamePlugins\SimpleTextDialogPlugin\SimpleTextDialogPlugin.cs" />
+    <Compile Include="GamePlugins\TabListPlugin2\Column.cs" />
+    <Compile Include="GamePlugins\TabListPlugin2\ListKind.cs" />
+    <Compile Include="GamePlugins\TabListPlugin2\Tab.cs" />
+    <Compile Include="GamePlugins\TabListPlugin2\TabListInFrame2.cs" />
+    <Compile Include="GamePlugins\TabListPlugin2\TabListPlugin2.cs" />
     <Compile Include="GamePlugins\TabListPlugin\Column.cs" />
     <Compile Include="GamePlugins\TabListPlugin\ListKind.cs" />
     <Compile Include="GamePlugins\TabListPlugin\Tab.cs" />
@@ -1717,10 +1725,6 @@
     <None Include="app.config" />
     <None Include="app.manifest" />
     <None Include="packages.config" />
-    <None Include="Properties\Settings.settings">
-      <Generator>SettingsSingleFileGenerator</Generator>
-      <LastGenOutput>Settings.Designer.cs</LastGenOutput>
-    </None>
   </ItemGroup>
   <ItemGroup />
   <ItemGroup>

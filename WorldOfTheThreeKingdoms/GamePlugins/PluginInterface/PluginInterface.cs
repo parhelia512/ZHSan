@@ -151,7 +151,28 @@ namespace PluginInterface
         int TopEdge { get; }
         int BottomEdge { get; }
     }
+    public interface IGameFrame2 : IBasePlugin, IPluginXML, IPluginGraphics
+    {
+        void Cancel();
+        void OK();
+        void SetCancelFunction(GameDelegates.VoidFunction function);
+        void SetFrameContent(object content, Point viewportSize);
+        //void SetFrameyoucelanContent(object content, Point viewportSize);
+        void SetOKFunction(GameDelegates.VoidFunction function);
+        void SetScreen(Screen screen);
 
+        //bool shiyoucelan { get; set; }
+        bool CancelButtonEnabled { get; set; }
+        FrameFunction Function { get; set; }
+        bool IsShowing { get; set; }
+        FrameKind Kind { get; set; }
+        bool OKButtonEnabled { get; set; }
+        FrameResult Result { get; }
+        int LeftEdge { get; }
+        int RightEdge { get; }
+        int TopEdge { get; }
+        int BottomEdge { get; }
+    }
     public interface IGameRecord : IBasePlugin, IPluginXML, IPluginGraphics, IScreenDisableRects
     {
         void AddBranch(object gameObject, string branchName, Point position);
@@ -207,6 +228,7 @@ namespace PluginInterface
         void SetOKFunction(GameDelegates.VoidFunction function);
         void SetScreen(Screen screen);
         void SetTabList(ITabList iTabList);
+        void SetTabList2(ITabList2 iTabList);
 
         bool IsShowing { get; set; }
         MapViewSelectorKind Kind { get; set; }
@@ -377,7 +399,27 @@ namespace PluginInterface
         object TabList { get; }
     }
 
+    public interface ITabList2 : IBasePlugin, IPluginXML, IPluginGraphics
+    {
+        void InitialValues(object gameObjectList, object selectedObjectList, int scrollValue, string title);
+        void RefreshEditable();
+        void SetArchitectureDetailDialog(IArchitectureDetail iArchitectureDetail);
+        void SetFactionTechniquesDialog(IFactionTechniques iFactionTechniques);
+        void SetGameFrame(IGameFrame2 iGameFrame);
+        void SetListKindByName(string Name, bool ShowCheckBox, bool MultiSelecting);
+        void SetMapViewSelector(IMapViewSelector iMapViewSelector);
+        void SetPersonDetailDialog(IPersonDetail iPersonDetail);
+        void SetScreen(Screen screen);
+        void SetSelectedItemMaxCount(int max);
+        void SetSelectedTab(string tabName);
+        void SetTreasureDetailDialog(ITreasureDetail iTreasureDetail);
+        void SetTroopDetailDialog(ITroopDetail iTroopDetail);
 
+        bool IsShowing { get; set; }
+        object SelectedItem { get; }
+        object SelectedItemList { get; }
+        object TabList { get; }
+    }
     public interface Iyoucelan : IBasePlugin, IPluginXML, IPluginGraphics
     {
         void InitialValues(object gameObjectList, object selectedObjectList, int scrollValue, string title);
@@ -414,6 +456,7 @@ namespace PluginInterface
         void SetArchitectureDetailDialog(IArchitectureDetail iArchitectureDetail);
         void SetFactionTechniquesDialog(IFactionTechniques iFactionTechniques);
         void SetGameFrame(IGameFrame iGameFrame);
+        void SetGameFrame2(IGameFrame2 iGameFrame2);
         void SetListKindByName(string Name, bool ShowCheckBox, bool MultiSelecting);
         void SetMapViewSelector(IMapViewSelector iMapViewSelector);
         void SetPersonDetailDialog(IPersonDetail iPersonDetail);

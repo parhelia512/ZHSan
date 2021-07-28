@@ -26,6 +26,7 @@ namespace WorldOfTheThreeKingdoms.GameLogic
         public IDateRunner DateRunnerPlugin = null;
         public IFactionTechniques FactionTechniquesPlugin = null;
         public IGameFrame GameFramePlugin = null;
+        public IGameFrame2 GameFramePlugin2 = null;
         public IGameRecord GameRecordPlugin = null;
         public IGameSystem GameSystemPlugin = null;
         public IHelp HelpPlugin = null;
@@ -44,6 +45,7 @@ namespace WorldOfTheThreeKingdoms.GameLogic
         public IScreenBlind ScreenBlindPlugin = null;
         public ISimpleTextDialog SimpleTextDialogPlugin = null;
         public ITabList TabListPlugin = null;
+        public ITabList2 TabListPlugin2 = null;
         public Iyoucelan youcelanPlugin = null;
         public IBianduiLiebiao BianduiLiebiao = null;
         public IToolBar ToolBarPlugin = null;
@@ -141,6 +143,14 @@ namespace WorldOfTheThreeKingdoms.GameLogic
                 this.GameFramePlugin.SetGraphicsDevice();
                 screen.PluginList.Add(this.GameFramePlugin.Instance as GameObject);
             }
+            plugin = new GameFormFramePlugin2.GameFramePlugin2();  // Plugin.Plugins.AvailablePlugins.Find("GameFramePlugin2");
+            if ((plugin != null) && (plugin.Instance is IGameFrame2))
+            {
+                this.GameFramePlugin2 = plugin.Instance as IGameFrame2;
+                this.GameFramePlugin2.SetScreen(screen);
+                this.GameFramePlugin2.SetGraphicsDevice();
+                screen.PluginList.Add(this.GameFramePlugin2.Instance as GameObject);
+            }
             plugin = new ScreenBlindPlugin.ScreenBlindPlugin();  // Plugin.Plugins.AvailablePlugins.Find("ScreenBlindPlugin");
             if ((plugin != null) && (plugin.Instance is IScreenBlind))
             {
@@ -172,6 +182,21 @@ namespace WorldOfTheThreeKingdoms.GameLogic
                 this.TabListPlugin.SetGameFrame(this.GameFramePlugin);
                 this.TabListPlugin.SetMapViewSelector(this.MapViewSelectorPlugin);
                 screen.PluginList.Add(this.TabListPlugin.Instance as GameObject);
+            }
+            plugin = new TabListPlugin2.TabListPlugin2();  // Plugin.Plugins.AvailablePlugins.Find("TabListPlugin2");
+            if ((plugin != null) && (plugin.Instance is ITabList2))
+            {
+                this.TabListPlugin2 = plugin.Instance as ITabList2;
+                this.TabListPlugin2.SetScreen(screen);
+                this.TabListPlugin2.SetGraphicsDevice();
+                this.TabListPlugin2.SetPersonDetailDialog(this.PersonDetailPlugin);
+                this.TabListPlugin2.SetTroopDetailDialog(this.TroopDetailPlugin);
+                this.TabListPlugin2.SetArchitectureDetailDialog(this.ArchitectureDetailPlugin);
+                this.TabListPlugin2.SetFactionTechniquesDialog(this.FactionTechniquesPlugin);
+                this.TabListPlugin2.SetTreasureDetailDialog(this.TreasureDetailPlugin);
+                this.TabListPlugin2.SetGameFrame(this.GameFramePlugin2);
+                this.TabListPlugin2.SetMapViewSelector(this.MapViewSelectorPlugin);
+                screen.PluginList.Add(this.TabListPlugin2.Instance as GameObject);
             }
             plugin = new OptionDialogPlugin.OptionDialogPlugin();  // Plugin.Plugins.AvailablePlugins.Find("OptionDialogPlugin");
             if ((plugin != null) && (plugin.Instance is IOptionDialog))
@@ -379,6 +404,7 @@ namespace WorldOfTheThreeKingdoms.GameLogic
                 this.BianduiLiebiao.SetFactionTechniquesDialog(this.FactionTechniquesPlugin);
                 this.BianduiLiebiao.SetTreasureDetailDialog(this.TreasureDetailPlugin);
                 this.BianduiLiebiao.SetGameFrame(this.GameFramePlugin);
+                this.BianduiLiebiao.SetGameFrame2(this.GameFramePlugin2);
                 this.BianduiLiebiao.SetMapViewSelector(this.MapViewSelectorPlugin);
                 screen.PluginList.Add(this.BianduiLiebiao.Instance as GameObject);
             }

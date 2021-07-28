@@ -6,10 +6,10 @@ using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using System;
 
-namespace GameFormFramePlugin
+namespace GameFormFramePlugin2
 {
 
-    internal class GameFrame
+    internal class GameFrame2
     {
         private Rectangle TopLeftRectangle;
         internal PlatformTexture TopLeftTexture;
@@ -103,21 +103,8 @@ namespace GameFormFramePlugin
         private Rectangle topedgeRectangle;
         internal PlatformTexture topedgeTexture;
         internal int topedgeWidth;
-        private bool toshowFrame2
-        {
-            get
-            {
-                if (!Session.MainGame.mainGameScreen.HasGameFame2toShow)
-                {
-                    return false;
-                }
-                return  Session.MainGame.mainGameScreen.HasGameFame2toShow;//this.Result == FrameResult.OK &&
-            }
-            set { toshowFrame2 = value; }
-        }
 
-
-        float depth = 0.04f;
+        float depth = 0.04f-0.01f;
 
         internal void DoCancel()
         {
@@ -138,10 +125,6 @@ namespace GameFormFramePlugin
                     this.frameContent.OKFunction = null;
                 }
                 this.IsShowing = false;
-                if (Session.MainGame.mainGameScreen.HasGameFame2toShow)
-                {
-                    toshowFrame2 = true;
-                }
             }
         }
         /*
@@ -165,7 +148,7 @@ namespace GameFormFramePlugin
         {
             Rectangle? sourceRectangle = null;
             CacheManager.Draw(this.titleTexture, this.titleRectangle, sourceRectangle, Color.White, 0f, Vector2.Zero, SpriteEffects.None, depth);
-            this.TitleText.Draw(0.03999f);
+            this.TitleText.Draw(0.03999f-0.01f);
             sourceRectangle = null;
             CacheManager.Draw(this.leftedgeTexture, this.leftedgeRectangle, sourceRectangle, Color.White, 0f, Vector2.Zero, SpriteEffects.None, depth);
             sourceRectangle = null;
@@ -310,7 +293,7 @@ namespace GameFormFramePlugin
 
         private void screen_OnMouseLeftDown(Point position)
         {
-            if (Session.MainGame.mainGameScreen.PeekUndoneWork().Kind == UndoneWorkKind.Frame)
+            if (Session.MainGame.mainGameScreen.PeekUndoneWork().Kind == UndoneWorkKind.Frame2)
             {
                 if (this.OKButtonEnabled)
                 {
@@ -354,7 +337,7 @@ namespace GameFormFramePlugin
 
         private void screen_OnMouseLeftUp(Point position)
         {
-            if (Session.MainGame.mainGameScreen.PeekUndoneWork().Kind == UndoneWorkKind.Frame)
+            if (Session.MainGame.mainGameScreen.PeekUndoneWork().Kind == UndoneWorkKind.Frame2)
             {
                 this.Draging = false;
                 if ((this.OKButtonEnabled && (this.OKButtonState == FrameButtonState.Pressed)) && StaticMethods.PointInRectangle(position, this.okbuttonRectangle))
@@ -366,7 +349,6 @@ namespace GameFormFramePlugin
                     {
                         this.frameContent.OKFunction();
                         this.frameContent.OKFunction = null;
-                        //this.frameContent.IsShowing = true;
                     }
                     this.IsShowing = false;
                 }
@@ -398,7 +380,7 @@ namespace GameFormFramePlugin
 
         private void screen_OnMouseMove(Point position, bool leftDown)
         {
-            if (Session.MainGame.mainGameScreen.PeekUndoneWork().Kind == UndoneWorkKind.Frame)
+            if (Session.MainGame.mainGameScreen.PeekUndoneWork().Kind == UndoneWorkKind.Frame2)
             {
                 if (this.OKButtonEnabled)
                 {
@@ -470,7 +452,7 @@ namespace GameFormFramePlugin
 
         private void screen_OnMouseRightUp(Point position)
         {
-            if ((Session.MainGame.mainGameScreen.PeekUndoneWork().Kind == UndoneWorkKind.Frame) && (this.CancelButtonEnabled && this.frameContent.CanClose))
+            if ((Session.MainGame.mainGameScreen.PeekUndoneWork().Kind == UndoneWorkKind.Frame2) && (this.CancelButtonEnabled && this.frameContent.CanClose))
             {
                 Session.MainGame.mainGameScreen.PlayNormalSound(this.CancelSoundFile);
                 this.Result = FrameResult.Cancel;
@@ -494,7 +476,7 @@ namespace GameFormFramePlugin
             this.frameContent = frameContent;
             this.frameContent.Function = this.Function;
             this.TitleText.Text = frameContent.GetCurrentTitle();
-            frameContent.FramePosition = StaticMethods.GetRectangleFitViewport(frameContent.DefaultFrameWidth, frameContent.DefaultFrameHeight, viewportSize);
+            frameContent.FramePosition = StaticMethods.GetRectangleFitViewport(frameContent.DefaultFrameWidth-100, frameContent.DefaultFrameHeight-100, viewportSize);
             this.OKButtonPosition = frameContent.OKButtonPosition;
             //this.SelectAllButtonPosition = frameContent.SelectAllButtonPosition;
             this.CancelButtonPosition = frameContent.CancelButtonPosition;
@@ -552,9 +534,7 @@ namespace GameFormFramePlugin
         {
             get
             {
-                if (this.toshowFrame2) { return true; }
-
-                return ((this.frameContent != null) && this.frameContent.IsShowing);               
+                return ((this.frameContent != null) && this.frameContent.IsShowing);
             }
             set
             {
@@ -565,7 +545,7 @@ namespace GameFormFramePlugin
                         if (this.frameContent != null)
                         {
                             this.frameContent.IsShowing = true;
-                            Session.MainGame.mainGameScreen.PushUndoneWork(new UndoneWorkItem(UndoneWorkKind.Frame, UndoneWorkSubKind.None));
+                            Session.MainGame.mainGameScreen.PushUndoneWork(new UndoneWorkItem(UndoneWorkKind.Frame2, UndoneWorkSubKind.None));
                             Session.MainGame.mainGameScreen.OnMouseMove += new Screen.MouseMove(this.screen_OnMouseMove);
                             Session.MainGame.mainGameScreen.OnMouseLeftDown += new Screen.MouseLeftDown(this.screen_OnMouseLeftDown);
                             Session.MainGame.mainGameScreen.OnMouseLeftUp += new Screen.MouseLeftUp(this.screen_OnMouseLeftUp);
@@ -574,8 +554,8 @@ namespace GameFormFramePlugin
                     }
                     else
                     {
-                        //this.frameContent.IsShowing = false;
-                        if (Session.MainGame.mainGameScreen.PopUndoneWork().Kind != UndoneWorkKind.Frame)
+                        this.frameContent.IsShowing = false;
+                        if (Session.MainGame.mainGameScreen.PopUndoneWork().Kind != UndoneWorkKind.Frame2)
                         {
                             throw new Exception("The UndoneWork is not a Frame.");
                         }
@@ -630,7 +610,7 @@ namespace GameFormFramePlugin
             set
             {
                 this.okbuttonPosition = value;
-                this.okbuttonRectangle = new Rectangle(this.Position.X + this.okbuttonPosition.X, this.Position.Y + this.okbuttonPosition.Y, this.okbuttonSize.X, this.okbuttonSize.Y);
+                this.okbuttonRectangle = new Rectangle(this.Position.X-100 + this.okbuttonPosition.X, this.Position.Y-100 + this.okbuttonPosition.Y, this.okbuttonSize.X, this.okbuttonSize.Y);
             }
         }
 

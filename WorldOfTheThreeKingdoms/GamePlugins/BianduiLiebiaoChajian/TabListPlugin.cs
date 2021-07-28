@@ -215,7 +215,10 @@ namespace BianduiLiebiaoChajian
         {
             this.tabList.iGameFrame = iGameFrame;
         }
-
+        public void SetGameFrame2(IGameFrame2 iGameFrame2)
+        {
+            this.tabList.iGameFrame2 = iGameFrame2;
+        }
         public void SetGraphicsDevice()
         {
             this.LoadDataFromXMLDocument(@"Content\Data\Plugins\BianduiLiebiaoChajian.xml");

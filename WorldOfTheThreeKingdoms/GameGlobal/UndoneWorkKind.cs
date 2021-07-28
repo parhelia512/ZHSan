@@ -9,6 +9,7 @@ namespace GameGlobal
         None,
         ContextMenu,
         Frame,
+        Frame2,
         Dialog,
         SubDialog,
         Selecting,

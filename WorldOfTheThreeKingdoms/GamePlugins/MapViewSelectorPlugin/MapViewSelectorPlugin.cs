@@ -134,7 +134,10 @@ namespace MapViewSelectorPlugin
         {
             this.mapViewSelector.iTabList = iTabList;
         }
-
+        public void SetTabList2(ITabList2 iTabList)
+        {
+            this.mapViewSelector.iTabList2 = iTabList;
+        }
         public void Update(GameTime gameTime)
         {
             if (this.IsShowing)

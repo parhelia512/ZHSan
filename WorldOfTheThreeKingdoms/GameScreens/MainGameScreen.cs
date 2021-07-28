@@ -81,6 +81,8 @@ namespace WorldOfTheThreeKingdoms.GameScreens
 
         public DantiaoLayer dantiaoLayer = null;
 
+        public bool GameFameShow;
+        public bool HasGameFame2toShow;
         public MainGameScreen()
             : base()
         {
@@ -259,6 +261,10 @@ namespace WorldOfTheThreeKingdoms.GameScreens
             {
                 this.Plugins.GameFramePlugin.Draw();
             }
+            if (this.Plugins.GameFramePlugin2.IsShowing)
+            {
+                this.Plugins.GameFramePlugin2.Draw();
+            }
         }
         
 
@@ -326,7 +332,10 @@ namespace WorldOfTheThreeKingdoms.GameScreens
                     this.DrawGameFrame();
                     this.Plugins.ToolBarPlugin.DrawTools = false;
                     break;
-
+                case UndoneWorkKind.Frame2:
+                    this.DrawGameFrame();
+                    this.Plugins.ToolBarPlugin.DrawTools = false;
+                    break;
                 case UndoneWorkKind.Dialog:
                     this.DrawDialog();
                     this.Plugins.ToolBarPlugin.DrawTools = false;
@@ -557,7 +566,15 @@ namespace WorldOfTheThreeKingdoms.GameScreens
                 
             }
         }
-
+        private void HandleFrameResult2(FrameResult result)
+        {
+            switch (result)
+            {
+                case FrameResult.OK:
+                    this.screenManager.HandleFrameFunction(this.Plugins.GameFramePlugin2.Function);
+                    break;
+            }
+        }
         private int oldDialogShowTime = -1;
         private bool? oldEnableCheat = null;
         private bool? oldSkyEye = null;
@@ -1552,7 +1569,10 @@ namespace WorldOfTheThreeKingdoms.GameScreens
                     this.gengxinyoucelan(); 
 
                     break;
-
+                case UndoneWorkKind.Frame2:
+                    this.HandleFrameResult2(this.Plugins.GameFramePlugin2.Result);
+                    this.gengxinyoucelan();
+                    break;
                 case UndoneWorkKind.Dialog:
                     this.HandleDialogResult(item.SubKind);
                     break;
@@ -2059,6 +2079,22 @@ namespace WorldOfTheThreeKingdoms.GameScreens
                 this.Plugins.GameFramePlugin.OKButtonEnabled = OKEnabled;
                 this.Plugins.GameFramePlugin.CancelButtonEnabled = CancelEnabled;
                 this.Plugins.GameFramePlugin.IsShowing = true;
+            }
+        }
+        public void ShowTabListInFrame2(UndoneWorkKind undoneWork, FrameKind kind, FrameFunction function, bool OKEnabled, bool CancelEnabled, bool showCheckBox, bool multiselecting, GameObjectList gameObjectList, GameObjectList selectedObjectList, string title, string tabName)
+        {
+            if ((gameObjectList != null) && (gameObjectList.Count != 0))
+            {
+                this.Plugins.GameFramePlugin2.Kind = kind;
+                this.Plugins.GameFramePlugin2.Function = function;
+                this.Plugins.TabListPlugin2.InitialValues(gameObjectList, selectedObjectList, InputManager.NowMouse.ScrollWheelValue, title);
+                this.Plugins.TabListPlugin2.SetListKindByName(kind.ToString(), showCheckBox, multiselecting);
+                this.Plugins.TabListPlugin2.SetSelectedTab(tabName);
+                this.Plugins.GameFramePlugin2.SetFrameContent(this.Plugins.TabListPlugin2.TabList, base.viewportSizeFull);
+
+                this.Plugins.GameFramePlugin2.OKButtonEnabled = OKEnabled;
+                this.Plugins.GameFramePlugin2.CancelButtonEnabled = CancelEnabled;
+                this.Plugins.GameFramePlugin2.IsShowing = true;
             }
         }
 

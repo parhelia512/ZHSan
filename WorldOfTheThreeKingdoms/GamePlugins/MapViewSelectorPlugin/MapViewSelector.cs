@@ -22,6 +22,7 @@ namespace MapViewSelectorPlugin
         internal IGameFrame iGameFrame;
         private bool isShowing;
         internal ITabList iTabList;
+        internal ITabList2 iTabList2;
         internal PlatformTexture ItemInListTexture;
         internal PlatformTexture ItemSelectedTexture;
         internal MapViewSelectorKind Kind;

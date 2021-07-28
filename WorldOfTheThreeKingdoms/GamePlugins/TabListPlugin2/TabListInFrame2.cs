@@ -10,27 +10,11 @@ using System.Collections.Generic;
 //using System.Runtime.InteropServices;
 using System.Xml;
 
-
-namespace BianduiLiebiaoChajian
+namespace TabListPlugin2
 {
-    internal class TabListInFrame : FrameContent
+
+    internal class TabListInFrame2 : FrameContent
     {
-        internal int Bingyi = 0;
-        internal Rectangle TopLeftRectangle;
-        internal PlatformTexture TopLeftTexture;
-        //internal int TopLeftWidth;
-        internal Rectangle TopRightRectangle;
-        internal PlatformTexture TopRightTexture;
-        //internal int TopRightWidth;
-        internal Rectangle BottomLeftRectangle;
-        internal PlatformTexture BottomLeftTexture;
-        //internal int BottomLeftWidth;
-        internal Rectangle BottomRightRectangle;
-        internal PlatformTexture BottomRightTexture;
-        //internal int BottomRightWidth;
-
-
-        internal Point TopLeftPosition = new Point();
         internal string checkboxDisplayName;
         internal string checkboxName;
         internal PlatformTexture checkboxSelectedTexture;
@@ -42,8 +26,8 @@ namespace BianduiLiebiaoChajian
         internal PlatformTexture columnspliterTexture;
         internal int columnspliterWidth;
         internal TextAlign ColumnTextAlign;
-
-        internal Font ColumnTextBuilder = new Font();
+        
+        public Font ColumnTextBuilder = new Font();
 
         internal Color ColumnTextColor;
         internal bool DrawFocused = false;
@@ -56,7 +40,6 @@ namespace BianduiLiebiaoChajian
         private bool HeightCanShrink = true;
         internal IArchitectureDetail iArchitectureDetail;
         internal IFactionTechniques iFactionTechniques;
-        internal IGameFrame iGameFrame;
         internal IGameFrame2 iGameFrame2;
         internal IMapViewSelector iMapViewSelector;
         internal IPersonDetail iPersonDetail;
@@ -99,135 +82,15 @@ namespace BianduiLiebiaoChajian
         internal PlatformTexture tabbuttonTexture;
         internal int tabbuttonWidth;
         internal TextAlign TabTextAlign;
-
-        internal Font TabTextBuilder = new Font();
+        PlatformTexture SellectAllTexture = CacheManager.GetTempTexture(@"Content\Textures\GameComponents\TabList\Data\CheckBox.png" );
+        string selectallstring = " 全 选 ";
+        int selectallX, selectallY;
+        public Font TabTextBuilder = new Font();
 
         internal Color TabTextColor;
         internal string Title = "";
         internal Rectangle VisibleLowerClient;
-
-        internal PlatformTexture ToolDisplayTexture;
-        internal Rectangle ToolPosition;
-        internal PlatformTexture ToolSelectedTexture;
-        internal PlatformTexture ToolTexture;
-
         private bool WidthCanShrink = true;
-
-
-        public  bool xianshiyoucelan=true;
-
-
-        internal  Rectangle backgroundRectangle;
-        internal PlatformTexture backgroundTexture;
-
-        internal Rectangle bottomedgeRectangle;
-        internal PlatformTexture bottomedgeTexture;
-        internal int bottomedgeWidth;
-
-
-    
-        internal Rectangle leftedgeRectangle;
-        internal PlatformTexture leftedgeTexture;
-        internal int leftedgeWidth;
-    
-   
-        internal Rectangle Position;
-     
-        internal Rectangle rightedgeRectangle;
-        internal PlatformTexture rightedgeTexture;
-        internal int rightedgeWidth;
-    
-      
-        internal Rectangle topedgeRectangle;
-        internal PlatformTexture topedgeTexture;
-        internal int topedgeWidth;
-
-        internal Rectangle ToolDisplayPosition;
-        //private FrameContent frameContent = null;
-        private bool jiancexianshi=false;
-        public void SetyoucelanContent(Point viewportSize)
-        {
-            //this.Result = FrameResult.Cancel;
-            //this.frameContent = frameContent;
-            //this.frameContent.Function = this.Function;
-            //this.TitleText.Text = frameContent.GetCurrentTitle();
-
-            this.FramePosition = GetRectangleFityoucelan(this.DefaultFrameWidth, this.DefaultFrameHeight, viewportSize);
-            //this.OKButtonPosition = frameContent.OKButtonPosition;
-            //this.CancelButtonPosition = frameContent.CancelButtonPosition;
-            //this.MapViewSelectorButtonPosition = frameContent.MapViewSelectorButtonPosition;
-            this.SetPosition(this.FramePosition);
-            this.ReCalculate();
-
-
-            //this.InitializeMapViewSelectorButton();
-            //this.OnItemClick += new FrameContent.ItemClick(this.frameContent_OnItemClick);
-        }
-        /*
-        private void frameContent_OnItemClick()
-        {
-            if (this.Function == FrameFunction.Jump)
-            {
-                //this.IsShowing = false;
-                if (Session.MainGame.mainGameScreen.PopUndoneWork().Kind != UndoneWorkKind.None)
-                {
-                    //throw new Exception("The UndoneWork is not a Frame.");  //错误检查
-                }
-
-            }
-        }*/
-
-
-
-        private Rectangle GetRectangleFityoucelan(int width, int height, Point viewportSize)
-        {
-            int x = width;
-            int y = height;
-            if (viewportSize.X < width)
-            {
-                x = viewportSize.X;
-            }
-            if (viewportSize.Y < height)
-            {
-                y = viewportSize.Y;
-            }
-            //return new Rectangle((viewportSize.X - x-this.rightedgeWidth*3), (viewportSize.Y - y) / 2, x, y);
-            return new Rectangle(this.TopLeftPosition.X , this.TopLeftPosition.Y , x, y);
-
-            //return new Rectangle((viewportSize.X - x ), (viewportSize.Y - y) / 2, x, y);
-
-        }
-        
-        private void SetPosition(Rectangle position)
-        {
-            this.Position = position;
-            this.ResetRectangles();
-        }
-
-        private void ResetRectangles()
-        {
-            this.leftedgeRectangle = new Rectangle(this.Position.X - this.leftedgeWidth, this.Position.Y, this.leftedgeWidth, this.Position.Height);
-            this.rightedgeRectangle = new Rectangle(this.Position.X + this.Position.Width, this.Position.Y, this.rightedgeWidth, this.Position.Height);
-            this.topedgeRectangle = new Rectangle(this.Position.X, this.Position.Y - this.topedgeWidth, this.Position.Width, this.topedgeWidth);
-            this.bottomedgeRectangle = new Rectangle(this.Position.X, this.Position.Y + this.Position.Height, this.Position.Width, this.bottomedgeWidth);
-            this.backgroundRectangle = new Rectangle(this.Position.X, this.Position.Y, this.Position.Width, this.Position.Height);
-
-            this.ToolDisplayPosition = new Rectangle(this.Position.X+this.ToolPosition.X , this.Position.Y+this.ToolPosition.Y , this.ToolPosition.Width, this.ToolPosition.Height);
-
-            this.TopLeftRectangle = new Rectangle(this.Position.X - this.leftedgeWidth, this.Position.Y - this.topedgeWidth, this.leftedgeWidth, this.topedgeWidth);
-            this.TopRightRectangle = new Rectangle(this.Position.X + this.Position.Width, this.Position.Y - this.topedgeWidth, this.rightedgeWidth, this.topedgeWidth);
-            this.BottomLeftRectangle = new Rectangle(this.Position.X - this.leftedgeWidth, this.Position.Y + this.Position.Height, this.leftedgeWidth, this.bottomedgeWidth);
-            this.BottomRightRectangle = new Rectangle(this.Position.X + this.Position.Width, this.Position.Y + this.Position.Height, this.rightedgeWidth, this.bottomedgeWidth);
-
-
-            //this.okbuttonRectangle = new Rectangle(this.Position.X + this.okbuttonPosition.X, this.Position.Y + this.okbuttonPosition.Y, this.okbuttonSize.X, this.okbuttonSize.Y);
-            //this.cancelbuttonRectangle = new Rectangle(this.Position.X + this.cancelbuttonPosition.X, this.Position.Y + this.cancelbuttonPosition.Y, this.cancelbuttonSize.X, this.cancelbuttonSize.Y);
-            //this.titleRectangle = new Rectangle(this.Position.X, this.Position.Y - this.titleHeight, this.titleWidth, this.titleHeight);
-            //this.TitleText.Position = this.titleRectangle;
-            //this.mapviewselectorButtonRectangle = new Rectangle(this.Position.X + this.mapviewselectorbuttonPosition.X, this.Position.Y + this.mapviewselectorbuttonPosition.Y, this.mapviewselectorbuttonSize.X, this.mapviewselectorbuttonSize.Y);
-        }
-
-
 
         public void AddRows()
         {
@@ -235,7 +98,7 @@ namespace BianduiLiebiaoChajian
             {
                 this.RowRectangles.Clear();
                 for (int i = 0; i < this.gameObjectList.Count; i++)
-                {                   
+                {
                     this.RowRectangles.Add(new Rectangle(this.VisibleLowerClient.X, (this.VisibleLowerClient.Y + this.columnheaderHeight) + (this.rowHeight * i), this.VisibleLowerClient.Width - 1, this.rowHeight));
                 }
             }
@@ -256,51 +119,23 @@ namespace BianduiLiebiaoChajian
 
         public override void Draw()
         {
-            
-            
-            if (this.xianshiyoucelan)
+            if (MultiSelecting)
             {
-                
-                CacheManager.Draw(this.leftedgeTexture, this.leftedgeRectangle, null, Color.White, 0f, Vector2.Zero, SpriteEffects.None, 0.4f);
-                
-                CacheManager.Draw(this.rightedgeTexture, this.rightedgeRectangle, null, Color.White, 0f, Vector2.Zero, SpriteEffects.None, 0.4f);
-                
-                CacheManager.Draw(this.topedgeTexture, this.topedgeRectangle, null, Color.White, 0f, Vector2.Zero, SpriteEffects.None, 0.4f);
-                
-                CacheManager.Draw(this.bottomedgeTexture, this.bottomedgeRectangle, null, Color.White, 0f, Vector2.Zero, SpriteEffects.None, 0.4f);
-                
-                CacheManager.Draw(this.backgroundTexture, this.backgroundRectangle, null, Color.White, 0f, Vector2.Zero, SpriteEffects.None, 0.4f);
-
-                CacheManager.Draw(this.TopLeftTexture, this.TopLeftRectangle, null, Color.White, 0f, Vector2.Zero, SpriteEffects.None, 0.4f);
-                CacheManager.Draw(this.TopRightTexture, this.TopRightRectangle, null, Color.White, 0f, Vector2.Zero, SpriteEffects.None, 0.4f);
-                CacheManager.Draw(this.BottomLeftTexture, this.BottomLeftRectangle, null, Color.White, 0f, Vector2.Zero, SpriteEffects.None, 0.4f);
-                CacheManager.Draw(this.BottomRightTexture, this.BottomRightRectangle, null, Color.White, 0f, Vector2.Zero, SpriteEffects.None, 0.4f);
-
-
-                //base.Draw();
-                //if (this.frameContent != null)
-                //{
-                //    this.frameContent.Draw();
-                //}
-
-                if (this.listKindToDisplay != null)
+                selectallX = this.listKindToDisplay.AllColumns[0].ColumnTextList[0].Position.X;
+                selectallY = base.RealClient.Bottom + (int)(1.2f * rowHeight);
+            }
+            base.Draw();
+            if (this.listKindToDisplay != null)
+            {
+                this.listKindToDisplay.Draw();
+                if (MultiSelecting)
                 {
-                    this.listKindToDisplay.Draw();
-                }
+                    CacheManager.Draw(SellectAllTexture, new Rectangle(selectallX - 2 * checkboxWidth, selectallY, (int)(checkboxWidth * 1.3), (int)(checkboxWidth * 1.3)), null, Color.White, 0f, Vector2.Zero, SpriteEffects.None, 0.035f-0.01f);
 
-                CacheManager.Draw(this.ToolDisplayTexture, this.ToolDisplayPosition, null, Color.White, 0f, Vector2.Zero, SpriteEffects.None, 0.099f);
+                    CacheManager.DrawString(Session.Current.Font, selectallstring, new Vector2(selectallX, selectallY), Color.White, 0f, Vector2.Zero, 1f, SpriteEffects.None, 0f);
+                }
             }
         }
-
-
-        /*private Rectangle ToolDisplayPosition
-        {
-            get
-            {
-                return new Rectangle(this.ToolPosition.X + 60, this.ToolPosition.Y + 50, this.ToolPosition.Width, this.ToolPosition.Height);
-            }
-        }*/
-
 
         public void EnlargeRectanglesHeight()
         {
@@ -362,7 +197,6 @@ namespace BianduiLiebiaoChajian
 
         private GameObject GetGameObjectByPosition(Point position)
         {
-            if (this.RowRectangles.Count != this.gameObjectList.Count) return null;
             for (int i = 0; i < this.RowRectangles.Count; i++)
             {
                 Rectangle rectangle = this.RowRectangles[i];
@@ -400,7 +234,7 @@ namespace BianduiLiebiaoChajian
 
         public Rectangle GetRealLowerVisibleClient()
         {
-            return new Rectangle(this.RealClient.X, this.listKindToDisplay.ColumnsTop, this.RealClient.Width, this.RealClient.Bottom - this.listKindToDisplay.ColumnsTop);
+            return new Rectangle(base.RealClient.X, this.listKindToDisplay.ColumnsTop, base.RealClient.Width, base.RealClient.Bottom - this.listKindToDisplay.ColumnsTop);
         }
 
         public int GetRowTopByPosition(Point position)
@@ -425,8 +259,7 @@ namespace BianduiLiebiaoChajian
         }
 
         internal void Initialize()
-        {
-            
+        {            
             this.ListKinds = new List<ListKind>();
             this.RowRectangles = new List<Rectangle>();
         }
@@ -449,7 +282,7 @@ namespace BianduiLiebiaoChajian
                         this.iMapViewSelector.IsShowing = true;
                     };
                 }
-                this.MapViewSelectorFunction = function;
+                base.MapViewSelectorFunction = function;
             }
         }
 
@@ -462,11 +295,11 @@ namespace BianduiLiebiaoChajian
             this.Title = title;
         }
 
-        public void LoadFromXMLNode(XmlNode rootNode)  //读取xml里的列表文件样式，包括tablist 和 listkind
+        public void LoadFromXMLNode(XmlNode rootNode)
         {
             this.rowHeight = int.Parse(rootNode.Attributes.GetNamedItem("RowHeight").Value);
-            this.defaultFrameWidth = int.Parse(rootNode.Attributes.GetNamedItem("FrameWidth").Value);
-            this.defaultFrameHeight = int.Parse(rootNode.Attributes.GetNamedItem("FrameHeight").Value);
+            base.defaultFrameWidth = int.Parse(rootNode.Attributes.GetNamedItem("FrameWidth").Value)-100;
+            base.defaultFrameHeight = int.Parse(rootNode.Attributes.GetNamedItem("FrameHeight").Value)-100;
             this.client.X = int.Parse(rootNode.Attributes.GetNamedItem("ClientX").Value);
             this.client.Y = int.Parse(rootNode.Attributes.GetNamedItem("ClientY").Value);
             this.client.Width = int.Parse(rootNode.Attributes.GetNamedItem("ClientWidth").Value);
@@ -479,15 +312,19 @@ namespace BianduiLiebiaoChajian
             this.defaultMapViewSelectorButtonPosition.Y = int.Parse(rootNode.Attributes.GetNamedItem("MapViewSelectorButtonY").Value);
             foreach (XmlNode node in rootNode.ChildNodes)
             {
-                ListKind item = new ListKind(this) {
-                    ID = int.Parse(node.Attributes.GetNamedItem("ID").Value),
-                    Name = node.Attributes.GetNamedItem("Name").Value,
-                    DisplayName = node.Attributes.GetNamedItem("DisplayName").Value,
-                    ShowPortrait = bool.Parse(node.Attributes.GetNamedItem("ShowPortrait").Value)
-                };
+                ListKind item = new ListKind(this);
+                item.ID = int.Parse(node.Attributes.GetNamedItem("ID").Value);
+                item.Name = node.Attributes.GetNamedItem("Name").Value;
+                item.DisplayName = node.Attributes.GetNamedItem("DisplayName").Value;
+                item.ShowPortrait = bool.Parse(node.Attributes.GetNamedItem("ShowPortrait").Value);
                 item.LoadFromXMLNode(node);
                 this.ListKinds.Add(item);
             }
+            if (Session.LargeContextMenu)
+            {
+                 this.rowHeight += 10;
+            }
+           
         }
 
         internal void PopSubKind()
@@ -529,10 +366,9 @@ namespace BianduiLiebiaoChajian
                 if (this.listKindToDisplay != null)
                 {
                     this.ReCalculate();
-                    SubKind item = new SubKind {
-                        Kind = this.listKindToDisplay,
-                        List = list
-                    };
+                    SubKind item = new SubKind();
+                    item.Kind = this.listKindToDisplay;
+                    item.List = list;
                     this.SubKinds.Push(item);
                 }
             }
@@ -540,24 +376,23 @@ namespace BianduiLiebiaoChajian
 
         public override void ReCalculate()
         {
-            //base.ReCalculate();
+            base.ReCalculate();
             if (this.listKindToDisplay != null)
             {
                 this.listKindToDisplay.ReCalculate();
             }
-            this.listKindToDisplay.Tabs[0].Bingyi = this.Bingyi;
             this.SelectDefaultTab();
         }
 
         internal void RefreshEditable()
         {
             this.ResetEditableTextures();
-            this.OKButtonEnabled = this.gameObjectList.HasSelectedItem();
+            base.OKButtonEnabled = this.gameObjectList.HasSelectedItem();
             if (this.MultiSelecting)
             {
                 this.SelectedItemList = this.gameObjectList.GetSelectedList();
             }
-            else if (this.OKButtonEnabled)
+            else if (base.OKButtonEnabled)
             {
                 this.SelectedItem = this.gameObjectList.GetSelectedList()[0];
             }
@@ -573,30 +408,113 @@ namespace BianduiLiebiaoChajian
 
         private void screen_OnMouseLeftDown(Point position)
         {
-
-            if (StaticMethods.PointInRectangle(position, this.ToolDisplayPosition))
+            //有時滑動滾動條時點到按鈕範圍，縮小點，以後看有沒更完美的修正辦法
+            var recSmall = new Rectangle(base.RealClient.X, base.RealClient.Y, base.RealClient.Width - 50, base.RealClient.Height);
+            if ((Session.MainGame.mainGameScreen.PeekUndoneWork().Kind == UndoneWorkKind.Frame2) && StaticMethods.PointInRectangle(position, recSmall))
             {
-                if (InputManager.IsPressed)
+                if (position.Y < this.listKindToDisplay.ColumnsTop)
                 {
-                    this.xianshiyoucelan = !this.xianshiyoucelan;
                 }
-                
-                if (true) //base.Enabled)
+                else if (position.Y < (this.listKindToDisplay.ColumnsTop + this.columnheaderHeight))
                 {
-                    if (this.xianshiyoucelan)
+                }
+                else
+                {
+                    GameObject gameObjectByPosition;
+                    if (this.ShowCheckBox)
                     {
-                        this.ToolDisplayTexture = this.ToolSelectedTexture;
+                        gameObjectByPosition = this.GetGameObjectByPosition(position);
+                        if (gameObjectByPosition != null)
+                        {
+                            if (this.listKindToDisplay.IsInEditableColumn(position))
+                            {
+                                if ((gameObjectByPosition.Selected || (this.SelectedItemMaxCount <= 0)) || (this.gameObjectList.GetSelectedList().Count < this.SelectedItemMaxCount))
+                                {
+                                    if (this.MultiSelecting)
+                                    {
+                                        if (!this.SelectingRows)
+                                        {
+                                            gameObjectByPosition.Selected = !gameObjectByPosition.Selected;
+
+                                            this.SelectingRows = true;
+                                            this.SelectingBool = gameObjectByPosition.Selected;
+                                        }
+
+                                        this.SelectedItemList = this.gameObjectList.GetSelectedList();
+                                        if (Session.MainGame.mainGameScreen.KeyState.IsKeyDown(Microsoft.Xna.Framework.Input.Keys.LeftControl))
+                                        {
+                                            foreach (GameObject g in this.gameObjectList)
+                                            {
+                                                g.Selected = !g.Selected;
+                                            }
+                                        }
+                                    }
+                                    else
+                                    {
+                                    }
+                                    base.OKButtonEnabled = this.gameObjectList.HasSelectedItem() || (gameObjectByPosition is Faction);
+                                    this.ResetEditableTextures();
+                                    if (gameObjectByPosition.Selected)
+                                    {
+                                        this.SelectedItem = gameObjectByPosition;
+                                        if (!(this.MultiSelecting || !Setting.Current.GlobalVariables.SingleSelectionOneClick))
+                                        {
+                                           // this.iGameFrame.OK();
+                                        }
+                                        else
+                                        {
+                                            Session.MainGame.mainGameScreen.PlayNormalSound(this.SelectSoundFile);
+                                        }
+                                    }
+                                    else
+                                    {
+                                        this.SelectedItem = null;
+                                    }
+                                }
+                            }
+                            else
+                            {
+
+                            }
+                        }
                     }
                     else
                     {
-                        this.ToolDisplayTexture = this.ToolTexture;
                     }
                 }
             }
 
+            else if (MultiSelecting && (Session.MainGame.mainGameScreen.PeekUndoneWork().Kind == UndoneWorkKind.Frame2) && StaticMethods.PointInRectangle(position, new Rectangle(selectallX - 2 * checkboxWidth, selectallY, (int)(checkboxWidth * 1.3), (int)(checkboxWidth * 1.3))))
+            {
+                if (selectallstring.Equals(" 全 选 "))
+                {
+                    SellectAllTexture = CacheManager.GetTempTexture(@"Content\Textures\GameComponents\TabList\Data\CheckBoxSelected.png");
+                    selectallstring = "取消全选";
+                    foreach (GameObject g in this.gameObjectList)
+                    {
+                        g.Selected = true;
+                    }
+                    this.ResetEditableTextures();
+                }
+                else
+                {
+                    SellectAllTexture = CacheManager.GetTempTexture(@"Content\Textures\GameComponents\TabList\Data\CheckBox.png");
+                    selectallstring = " 全 选 ";
+                    foreach (GameObject g in this.gameObjectList)
+                    {
+                        g.Selected = false;
+                    }
+                    this.ResetEditableTextures();
+                }
+            }
 
+        }
 
-            if (this.xianshiyoucelan && (Session.MainGame.mainGameScreen.PeekUndoneWork().Kind == UndoneWorkKind.ContextMenu ) && StaticMethods.PointInRectangle(position, this.RealClient))
+        private void screen_OnMouseLeftUp(Point position)
+        {
+            //有時滑動滾動條時點到按鈕範圍，縮小點，以後看有沒更完美的修正辦法
+            var recSmall = new Rectangle(base.RealClient.X, base.RealClient.Y, base.RealClient.Width - 50, base.RealClient.Height);
+            if ((Session.MainGame.mainGameScreen.PeekUndoneWork().Kind == UndoneWorkKind.Frame2) && StaticMethods.PointInRectangle(position, recSmall))
             {
                 if (position.Y < this.listKindToDisplay.ColumnsTop)
                 {
@@ -611,8 +529,8 @@ namespace BianduiLiebiaoChajian
                     Column columnByPosition = this.GetColumnByPosition(position);
                     if (columnByPosition != null)
                     {
-                        PropertyComparer comparer = new PropertyComparer(columnByPosition.Name, columnByPosition.IsNumber, columnByPosition.SmallToBig);
-                        this.gameObjectList.Sort(comparer);
+                        PropertyComparer comparer = new PropertyComparer(columnByPosition.Name, columnByPosition.IsNumber, columnByPosition.SmallToBig, columnByPosition.ItemID);
+                        this.gameObjectList.StableSort(comparer);
                         this.listKindToDisplay.ResetAllTextures();
                         columnByPosition.SmallToBig = !columnByPosition.SmallToBig;
                     }
@@ -629,29 +547,33 @@ namespace BianduiLiebiaoChajian
                             {
                                 if ((gameObjectByPosition.Selected || (this.SelectedItemMaxCount <= 0)) || (this.gameObjectList.GetSelectedList().Count < this.SelectedItemMaxCount))
                                 {
-                                    gameObjectByPosition.Selected = !gameObjectByPosition.Selected;
                                     if (this.MultiSelecting)
                                     {
+                                        /*
                                         this.SelectingRows = true;
                                         this.SelectingBool = gameObjectByPosition.Selected;
                                         this.SelectedItemList = this.gameObjectList.GetSelectedList();
+                                         */
+
                                     }
                                     else
                                     {
+                                        gameObjectByPosition.Selected = !gameObjectByPosition.Selected;
+
                                         this.gameObjectList.SetOtherUnSelected(gameObjectByPosition);
                                     }
-                                    this.OKButtonEnabled = this.gameObjectList.HasSelectedItem() || (gameObjectByPosition is Faction);
+                                    base.OKButtonEnabled = this.gameObjectList.HasSelectedItem() || (gameObjectByPosition is Faction);
                                     this.ResetEditableTextures();
                                     if (gameObjectByPosition.Selected)
                                     {
                                         this.SelectedItem = gameObjectByPosition;
                                         if (!(this.MultiSelecting || !Setting.Current.GlobalVariables.SingleSelectionOneClick))
                                         {
-                                            this.iGameFrame.OK();
+                                            this.iGameFrame2.OK();
                                         }
                                         else
                                         {
-                                            Session.MainGame.mainGameScreen.PlayNormalSound(this.SelectSoundFile);
+                                            //Session.MainGame.mainGameScreen.PlayNormalSound(this.SelectSoundFile);
                                         }
                                     }
                                     else
@@ -664,17 +586,21 @@ namespace BianduiLiebiaoChajian
                             {
                                 if (gameObjectByPosition is Troop)
                                 {
-                                    if ((this.iTroopDetail != null) && (this.Function != FrameFunction.Jump))
+                                    if ((this.iTroopDetail != null) && (base.Function != FrameFunction.Jump))
                                     {
                                         this.iTroopDetail.SetPosition(ShowPosition.Center);
                                         this.iTroopDetail.SetTroop(gameObjectByPosition);
                                         this.iTroopDetail.IsShowing = true;
                                     }
-                                    Session.MainGame.mainGameScreen.JumpTo((gameObjectByPosition as Troop).Position);
+                                    Point pos = (gameObjectByPosition as Troop).Position;
+                                    if (pos != Point.Zero)
+                                    {
+                                        Session.MainGame.mainGameScreen.JumpTo(pos);
+                                    }
                                 }
                                 else if (gameObjectByPosition is Person)
                                 {
-                                    if ((this.iPersonDetail != null) && (this.Function != FrameFunction.Jump))
+                                    if ((this.iPersonDetail != null) && (base.Function != FrameFunction.Jump))
                                     {
                                         this.iPersonDetail.SetPosition(ShowPosition.Center);
                                         this.iPersonDetail.SetPerson(gameObjectByPosition);
@@ -682,18 +608,26 @@ namespace BianduiLiebiaoChajian
                                     }
                                     if (!(gameObjectByPosition as Person).IsCaptive)
                                     {
-                                        Session.MainGame.mainGameScreen.JumpTo((gameObjectByPosition as Person).Position);
+                                        Point pos = (gameObjectByPosition as Person).Position;
+                                        if (pos != Point.Zero)
+                                        {
+                                            Session.MainGame.mainGameScreen.JumpTo(pos);
+                                        }
                                     }
                                 }
                                 else if (gameObjectByPosition is Architecture)
                                 {
-                                    if ((this.iArchitectureDetail != null) && (this.Function != FrameFunction.Jump))
+                                    if ((this.iArchitectureDetail != null) && (base.Function != FrameFunction.Jump))
                                     {
                                         this.iArchitectureDetail.SetPosition(ShowPosition.Center);
                                         this.iArchitectureDetail.SetArchitecture(gameObjectByPosition);
                                         this.iArchitectureDetail.IsShowing = true;
                                     }
-                                    Session.MainGame.mainGameScreen.JumpTo((gameObjectByPosition as Architecture).Position);
+                                    Point pos = (gameObjectByPosition as Architecture).Position;
+                                    if (pos != Point.Zero)
+                                    {
+                                        Session.MainGame.mainGameScreen.JumpTo(pos);
+                                    }
                                 }
                                 else if (gameObjectByPosition is Military)
                                 {
@@ -701,7 +635,7 @@ namespace BianduiLiebiaoChajian
                                 }
                                 else if (gameObjectByPosition is Faction)
                                 {
-                                    if ((this.iFactionTechniques != null) && (this.Function != FrameFunction.Jump))
+                                    if ((this.iFactionTechniques != null) && (base.Function != FrameFunction.Jump))
                                     {
                                         this.iFactionTechniques.SetArchitecture(null);
                                         this.iFactionTechniques.SetFaction(gameObjectByPosition, false);
@@ -712,7 +646,7 @@ namespace BianduiLiebiaoChajian
                                 }
                                 else if (gameObjectByPosition is Captive)
                                 {
-                                    if ((this.iPersonDetail != null) && (this.Function != FrameFunction.Jump))
+                                    if ((this.iPersonDetail != null) && (base.Function != FrameFunction.Jump))
                                     {
                                         this.iPersonDetail.SetPosition(ShowPosition.Center);
                                         this.iPersonDetail.SetPerson((gameObjectByPosition as Captive).CaptivePerson);
@@ -721,7 +655,7 @@ namespace BianduiLiebiaoChajian
                                 }
                                 else if (gameObjectByPosition is Treasure)
                                 {
-                                    if ((this.iTreasureDetail != null) && (this.Function != FrameFunction.Jump))
+                                    if ((this.iTreasureDetail != null) && (base.Function != FrameFunction.Jump))
                                     {
                                         this.iTreasureDetail.SetPosition(ShowPosition.Center);
                                         this.iTreasureDetail.SetTreasure(gameObjectByPosition);
@@ -732,9 +666,20 @@ namespace BianduiLiebiaoChajian
                                         Session.MainGame.mainGameScreen.JumpTo((gameObjectByPosition as Treasure).BelongedPerson.Position);
                                     }
                                 }
+                                else if (gameObjectByPosition is Information)
+                                {
+                                    if (base.Function != FrameFunction.Jump)
+                                    {
+                                        Session.MainGame.mainGameScreen.JumpTo((gameObjectByPosition as Information).Position);
+                                    }
+                                }
+                                else if (this.listKindToDisplay.SelectedTab.ListMethod != null)
+                                {
+                                    this.PushSubKindByName(this.listKindToDisplay.SelectedTab.ListKind, StaticMethods.GetListMethodValue(gameObjectByPosition, this.listKindToDisplay.SelectedTab.ListMethod) as GameObjectList);
+                                }
                                 if (gameObjectByPosition != null)
                                 {
-                                    this.TriggerItemClick();
+                                    base.TriggerItemClick();
                                 }
                             }
                         }
@@ -752,7 +697,7 @@ namespace BianduiLiebiaoChajian
                             {
                                 if (gameObjectByPosition is Troop)
                                 {
-                                    if ((this.iTroopDetail != null) && (this.Function != FrameFunction.Jump))
+                                    if ((this.iTroopDetail != null) && (base.Function != FrameFunction.Jump))
                                     {
                                         this.iTroopDetail.SetPosition(ShowPosition.Center);
                                         this.iTroopDetail.SetTroop(gameObjectByPosition);
@@ -762,7 +707,7 @@ namespace BianduiLiebiaoChajian
                                 }
                                 else if (gameObjectByPosition is Person)
                                 {
-                                    if ((this.iPersonDetail != null) && (this.Function != FrameFunction.Jump))
+                                    if ((this.iPersonDetail != null) && (base.Function != FrameFunction.Jump))
                                     {
                                         this.iPersonDetail.SetPosition(ShowPosition.Center);
                                         this.iPersonDetail.SetPerson(gameObjectByPosition);
@@ -775,7 +720,7 @@ namespace BianduiLiebiaoChajian
                                 }
                                 else if (gameObjectByPosition is Architecture)
                                 {
-                                    if ((this.iArchitectureDetail != null) && (this.Function != FrameFunction.Jump))
+                                    if ((this.iArchitectureDetail != null) && (base.Function != FrameFunction.Jump))
                                     {
                                         this.iArchitectureDetail.SetPosition(ShowPosition.Center);
                                         this.iArchitectureDetail.SetArchitecture(gameObjectByPosition);
@@ -789,7 +734,7 @@ namespace BianduiLiebiaoChajian
                                 }
                                 else if (gameObjectByPosition is Faction)
                                 {
-                                    if ((this.iFactionTechniques != null) && (this.Function != FrameFunction.Jump))
+                                    if ((this.iFactionTechniques != null) && (base.Function != FrameFunction.Jump))
                                     {
                                         this.iFactionTechniques.SetArchitecture(null);
                                         this.iFactionTechniques.SetFaction(gameObjectByPosition, false);
@@ -800,7 +745,7 @@ namespace BianduiLiebiaoChajian
                                 }
                                 else if (gameObjectByPosition is Captive)
                                 {
-                                    if ((this.iPersonDetail != null) && (this.Function != FrameFunction.Jump))
+                                    if ((this.iPersonDetail != null) && (base.Function != FrameFunction.Jump))
                                     {
                                         this.iPersonDetail.SetPosition(ShowPosition.Center);
                                         this.iPersonDetail.SetPerson((gameObjectByPosition as Captive).CaptivePerson);
@@ -809,7 +754,7 @@ namespace BianduiLiebiaoChajian
                                 }
                                 else if (gameObjectByPosition is Treasure)
                                 {
-                                    if ((this.iTreasureDetail != null) && (this.Function != FrameFunction.Jump))
+                                    if ((this.iTreasureDetail != null) && (base.Function != FrameFunction.Jump))
                                     {
                                         this.iTreasureDetail.SetPosition(ShowPosition.Center);
                                         this.iTreasureDetail.SetTreasure(gameObjectByPosition);
@@ -820,20 +765,26 @@ namespace BianduiLiebiaoChajian
                                         Session.MainGame.mainGameScreen.JumpTo((gameObjectByPosition as Treasure).BelongedPerson.Position);
                                     }
                                 }
+                                else if (gameObjectByPosition is Information)
+                                {
+                                    if (base.Function != FrameFunction.Jump)
+                                    {
+                                        Session.MainGame.mainGameScreen.JumpTo((gameObjectByPosition as Information).Position);
+                                    }
+                                }
                                 if (gameObjectByPosition != null)
                                 {
-                                    this.TriggerItemClick();
+                                    base.TriggerItemClick();
                                 }
                             }
                         }
                     }
                 }
             }
-        }
 
-        private void screen_OnMouseLeftUp(Point position)
-        {
-            if (Session.MainGame.mainGameScreen.PeekUndoneWork().Kind == UndoneWorkKind.ContextMenu )
+            /////////////////////////////////////////////////
+
+            if (Session.MainGame.mainGameScreen.PeekUndoneWork().Kind == UndoneWorkKind.Frame2)
             {
                 this.MovingHorizontalScrollBar = false;
                 this.MovingVerticalScrollBar = false;
@@ -843,7 +794,7 @@ namespace BianduiLiebiaoChajian
 
         private void screen_OnMouseMove(Point position, bool leftDown)
         {
-            if ((Session.MainGame.mainGameScreen.PeekUndoneWork().Kind == UndoneWorkKind.ContextMenu ) && (this.oldMousePosition != position))
+            if ((Session.MainGame.mainGameScreen.PeekUndoneWork().Kind == UndoneWorkKind.Frame2) && (this.oldMousePosition != position))
             {
                 if (leftDown)
                 {
@@ -855,7 +806,7 @@ namespace BianduiLiebiaoChajian
                             if (!this.SelectingRows)
                             {
                                 this.SelectingRows = true;
-                                this.SelectingBool = gameObjectByPosition.Selected;
+                                this.SelectingBool = !gameObjectByPosition.Selected;
                             }
                             if (this.SelectingRows)
                             {
@@ -873,7 +824,7 @@ namespace BianduiLiebiaoChajian
                                     this.ResetEditableTextures();
                                 }
                             }
-                            this.OKButtonEnabled = this.gameObjectList.HasSelectedItem();
+                            base.OKButtonEnabled = this.gameObjectList.HasSelectedItem();
                             this.SelectedItemList = this.gameObjectList.GetSelectedList();
                         }
                     }
@@ -908,7 +859,7 @@ namespace BianduiLiebiaoChajian
 
         private void screen_OnMouseRightUp(Point position)
         {
-            if (Session.MainGame.mainGameScreen.PeekUndoneWork().Kind == UndoneWorkKind.ContextMenu )
+            if (Session.MainGame.mainGameScreen.PeekUndoneWork().Kind == UndoneWorkKind.Frame2)
             {
                 this.PopSubKind();
             }
@@ -916,7 +867,7 @@ namespace BianduiLiebiaoChajian
 
         private void screen_OnMouseScroll(Point position, int scrollValue)
         {
-            if (((Session.MainGame.mainGameScreen.PeekUndoneWork().Kind == UndoneWorkKind.ContextMenu ) && (!this.MovingHorizontalScrollBar && !this.MovingVerticalScrollBar)) && (this.listKindToDisplay != null))
+            if (((Session.MainGame.mainGameScreen.PeekUndoneWork().Kind == UndoneWorkKind.Frame2) && (!this.MovingHorizontalScrollBar && !this.MovingVerticalScrollBar)) && (this.listKindToDisplay != null))
             {
                 if (this.ShowVerticalScrollBar)
                 {
@@ -1037,8 +988,7 @@ namespace BianduiLiebiaoChajian
         public override bool IsShowing
         {
             get
-
-            {/*
+            {
                 bool isShowing = base.isShowing;
                 if (isShowing && (this.iPersonDetail != null))
                 {
@@ -1057,43 +1007,30 @@ namespace BianduiLiebiaoChajian
                     isShowing = !this.iFactionTechniques.IsShowing;
                 }
                 return isShowing;
-              */
-
-                return this.jiancexianshi ;
             }
-
-
             set
             {
-                if (this.jiancexianshi != value)
+                if (value != base.isShowing)
                 {
-                    //base.isShowing = value;
-                    this.jiancexianshi = value;
+                    base.isShowing = value;
                     if (value)
                     {
-                        //Session.MainGame.mainGameScreen.PushUndoneWork(new UndoneWorkItem(UndoneWorkKind.None, UndoneWorkSubKind.None));
-                        //this.frameContent.IsShowing = true;
                         Session.MainGame.mainGameScreen.OnMouseMove += new Screen.MouseMove(this.screen_OnMouseMove);
-                        Session.MainGame.mainGameScreen.OnMouseLeftDown += new Screen.MouseLeftDown(this.screen_OnMouseLeftDown);
+                        //Session.MainGame.mainGameScreen.OnMouseLeftDown += new Screen.MouseLeftDown(this.screen_OnMouseLeftDown);
+                        Session.MainGame.mainGameScreen.OnMouseLeftUp += new Screen.MouseLeftUp(this.screen_OnMouseLeftDown);
                         Session.MainGame.mainGameScreen.OnMouseLeftUp += new Screen.MouseLeftUp(this.screen_OnMouseLeftUp);
                         Session.MainGame.mainGameScreen.OnMouseRightUp += new Screen.MouseRightUp(this.screen_OnMouseRightUp);
-                        //Session.MainGame.mainGameScreen.OnMouseScroll += new Screen.MouseScroll(this.screen_OnMouseScroll);
+                        Session.MainGame.mainGameScreen.OnMouseScroll += new Screen.MouseScroll(this.screen_OnMouseScroll);
                     }
                     else
                     {
-                        //if (Session.MainGame.mainGameScreen.PopUndoneWork().Kind != UndoneWorkKind.None )
-                        {
-                            //throw new Exception("The UndoneWork is not a Frame.");  //错误检查
-                        }
-                        //this.frameContent.IsShowing = false;
-
                         Session.MainGame.mainGameScreen.OnMouseMove -= new Screen.MouseMove(this.screen_OnMouseMove);
-                        Session.MainGame.mainGameScreen.OnMouseLeftDown -= new Screen.MouseLeftDown(this.screen_OnMouseLeftDown);
+                        //Session.MainGame.mainGameScreen.OnMouseLeftDown -= new Screen.MouseLeftDown(this.screen_OnMouseLeftDown);
+                        Session.MainGame.mainGameScreen.OnMouseLeftUp -= new Screen.MouseLeftUp(this.screen_OnMouseLeftDown);
                         Session.MainGame.mainGameScreen.OnMouseLeftUp -= new Screen.MouseLeftUp(this.screen_OnMouseLeftUp);
                         Session.MainGame.mainGameScreen.OnMouseRightUp -= new Screen.MouseRightUp(this.screen_OnMouseRightUp);
-                        //Session.MainGame.mainGameScreen.OnMouseScroll -= new Screen.MouseScroll(this.screen_OnMouseScroll);
+                        Session.MainGame.mainGameScreen.OnMouseScroll -= new Screen.MouseScroll(this.screen_OnMouseScroll);
                         this.SelectedItemMaxCount = 0;
-                        this.OKFunction = null;
                     }
                 }
             }

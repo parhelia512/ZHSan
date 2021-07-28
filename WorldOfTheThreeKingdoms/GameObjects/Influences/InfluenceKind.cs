@@ -705,6 +705,13 @@ namespace GameObjects.Influences
                 if (i.appliedTroop.Remove(new ApplyingTroop(troop, applier, applierID)))
                 {
                     troop.InfluencesApplying.Remove(i);
+                    ApplyingTroop item = new ApplyingTroop(troop, Applier.Skill, 45);
+                    if (i.appliedTroop.Remove(item))
+                    {
+                        i.appliedTroop.Add(item);
+                        return;
+                    }
+                    troop.InfluencesApplying.Remove(i);
                     PurifyInfluenceKind(troop);
                 }
             }
